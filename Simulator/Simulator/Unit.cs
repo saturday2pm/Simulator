@@ -30,6 +30,14 @@ namespace Simulator
 			Y = y;
 		}
 
+		public float DistSquare(Point other)
+		{
+			float xDist = X - other.X;
+			float yDist = Y - other.Y;
+
+			return xDist * xDist + yDist * yDist;
+		}
+
 		public static Point operator *(float multiply, Point pos)
 		{
 			return new Point(pos.X * multiply, pos.Y * multiply);
@@ -83,27 +91,22 @@ namespace Simulator
 				return BattleResult.Lose;
 			}
 
-			var enemy = match.FindEnemy(Road);
+			var enemy = match.FindEnemy(this, Road);
 
 			//적이 없음
 			if (enemy == null)
 			{
-				//waypoint에 도달했는지 확인
-				if (match.IsInRange(this, Road.End))
-				{
-					//길 중간지점 같은게 아니라 성이다 -> 공격
-					if (Road.End is Castle)
-					{
-						//성 공격
-						var castle = Road.End as Castle;
+				//waypoint에 도달했는지 확인 - TODO : 나중에 waypoint에 castle말고 딴 거 추가되면 그 쪽 처리해야함
+				var castle = Road.End as Castle;
 
-						castle.Attacked(this);
-
-						return BattleResult.AttackCastle;
-					}
-
-					//걍 길 중간지점 - 이건 아직 어떻게 할 지 안 정함 이 경우 예외
+				if (castle == null)
 					throw new NotImplementedException();
+
+				if (match.IsInRange(this, castle))
+				{
+					castle.Attacked(this);
+
+					return BattleResult.AttackCastle;
 				}
 
 				//적도 없고 waypoint에도 도착 안함 -> 아예 전투가 없었음

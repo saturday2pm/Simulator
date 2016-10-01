@@ -23,6 +23,27 @@ namespace Simulator
 			Dir.X = x / norm;
 			Dir.Y = y / norm;
 		}
-		
+
+		public Path Reverse
+		{
+			get { return new Path(End, Start); }
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj == null) return false;
+
+			var castle = obj as Path;
+
+			if (castle == null) return false;
+
+			return (Start == castle.Start) && (End == castle.End);
+		}
+
+		public override int GetHashCode()
+		{
+			return Start.GetHashCode() + End.GetHashCode();
+		}
+
 	}
 }

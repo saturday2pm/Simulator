@@ -32,6 +32,7 @@ namespace Simulator
 
 
 		public float UnitSpeed { get; set; }
+		//unit의 공격 범위
 		public float UnitAttackRange { get; set; }
 
 		public List<CastleUpgradeInfo> UpgradeInfo { get; set; }

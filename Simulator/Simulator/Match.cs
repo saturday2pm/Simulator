@@ -64,6 +64,9 @@ namespace Simulator
 			//각 path에 있는 유닛들에 대한 결과를 처리한다
 			foreach (var unitQueue in Units.Values)
 			{
+				if (unitQueue.Count == 0)
+					continue;
+
 				var head = unitQueue.Peek();
 
 				//해당 path의 제일 앞에 있는 유닛이 전투를 벌였는지 확인 - 그 결과에 따라 다르게 행동
@@ -107,18 +110,41 @@ namespace Simulator
 
 		public bool IsEnd()
 		{
-			return false;
+			return Players.Count <= 1;
 		}
 
-		public Unit FindEnemy(Path path)
+		public Unit FindEnemy(Unit unit, Path path)
 		{
+			var queue = Units[path.Reverse];
+
+			if (queue.Count == 0)
+				return null;
+
+			var firstEnemy = queue.Peek();
+
+			//공격 가능한 적이 있음
+			if (unit.Pos.DistSquare(firstEnemy.Pos) < Option.UnitAttackRange)
+			{
+				return firstEnemy;
+			}
+
 			return null;
 		}
 
-		//성이 공격 범위 내에 있는지 계산해서 돌려줌
-		public bool IsInRange(Unit unit, Waypoint castle)
+		//성의 업그레이드 레벨 고려한 성 둘레 계산해서 돌려줌
+		public float GetRadius(Castle castle)
 		{
-			return false;
+			if (Option.UpgradeInfo.Count < castle.Level)
+				throw new InvalidOperationException();
+
+			return Option.UpgradeInfo[castle.Level - 1].Radius;
+		}
+
+		//성이 공격 범위 내에 있는지 계산해서 돌려줌
+		public bool IsInRange(Unit unit, Castle castle)
+		{
+			float range = Option.UnitAttackRange + GetRadius(castle);
+			return unit.Pos.DistSquare(castle.Pos) < range * range;
 		}
     }
 }
