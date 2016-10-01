@@ -4,6 +4,14 @@ using System.Text;
 
 namespace Simulator
 {
+	public enum BattleResult
+	{
+		NotBattle, // 아무하고도 안 마주침
+		AttackCastle, //성 공격(무조건 뒤짐)
+		Win, //상대와 싸워이김(살았음)
+		Lose, //상대와 싸워서 졌음(죽었음)
+	}
+
 	public class Point
 	{
 		public float X { get; set; }
@@ -39,11 +47,8 @@ namespace Simulator
 
 		public Player Owner { get; private set; }
 
-		//이 유닛이 출발한 지점 - endPoint와 함께 전투 판단할 때 쓰임
-		public Waypoint StartPoint { get; private set; }
-
-		//이 유닛의 목적 공격 지점
-		public Waypoint EndPoint { get; private set; }
+		//이 유닛이 있는 경로 - 전투 판단할 때 쓰임
+		public Path Road { get; private set; }
 
 		public Unit(float x, float y, Player owner, Waypoint startPoint, Waypoint endPoint)
 		{
@@ -52,8 +57,7 @@ namespace Simulator
 
 			Owner = owner;
 
-			StartPoint = startPoint;
-			EndPoint = endPoint;
+			Road = new Path(startPoint, endPoint);
 		}
 
 		public Unit(Point pos, Player owner, Waypoint startPoint, Waypoint endPoint)
@@ -61,11 +65,16 @@ namespace Simulator
 			Pos = pos;
 			Owner = owner;
 
-			StartPoint = startPoint;
-			EndPoint = endPoint;
+			Road = new Path(startPoint, endPoint);
 		}
 
-		public void Update(Match match)
+		public BattleResult Battle(Match match)
+		{
+			return BattleResult.NotBattle;
+		}
+
+		//속도에 맞게 지정된 경로 따라 이동함
+		public void Move(Match match)
 		{
 		}
 	}
