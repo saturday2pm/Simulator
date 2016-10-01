@@ -16,5 +16,25 @@ namespace Viewer
         {
             InitializeComponent();
         }
-    }
+
+		private void startButton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OptionLoadingButton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void manualCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void nextFrameButton_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
