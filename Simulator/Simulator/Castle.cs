@@ -115,6 +115,15 @@ namespace Simulator
 				return;
 
 			unitNum -= unit.Num;
+
+			if (unitNum <= 0.0f)
+			{
+				unitNum = -unitNum;
+
+				Owner.RemoveCastle(this);
+				Owner = unit.Owner;
+				Owner.AddCastle(this);
+			}
 		}
 
 		public void Upgrade()
