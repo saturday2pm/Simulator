@@ -9,5 +9,13 @@
     <Import_RootNamespace>Simulator</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Castle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Match.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MatchOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Path.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Unit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Waypoint.cs" />
   </ItemGroup>
 </Project>

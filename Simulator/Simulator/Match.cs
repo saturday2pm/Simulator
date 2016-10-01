@@ -7,6 +7,7 @@ namespace Simulator
 {
     public class Match
     {
+		Random r = new Random();
 		public List<Player> Players { get; private set; }
 		public List<Castle> Castles { get; private set; }
 
@@ -17,15 +18,39 @@ namespace Simulator
 
 		public int Frame { get; private set; }
 
-		public int width { get; private set; }
-		public int Height { get; private set; }
+		public MatchOption Option { get; private set; }
 
 		public float UnitIncreaseRatio { get; private set; }
 		public float UnitSpeed { get; private set; }
 
+		public Match(MatchOption option)
+		{
+			Option = option;
+		}
+
+		void MakeWaypoints()
+		{
+			//일단 지금은 성만 생성
+			for (int i = 0; i < Option.CastleNum; i++)
+			{
+				int x = 0; 
+				int y = 0;
+
+				do
+				{
+					x = r.Next(0, Option.Width);
+					y = r.Next(0, Option.Height);
+				} while (Castles.Any(c => (c.Pos.X - x) * (c.Pos.X - x) + (c.Pos.Y - y) * (c.Pos.Y - y) < Option.CastleDistance * Option.CastleDistance));
+
+				Castles.Add(new Castle(waypointId, x, y));
+				waypointId++;
+			}
+		}
+
 		public void Init()
 		{
 			//맵 생성
+			MakeWaypoints();
 
 			//플레이어별 초기화 동작
 			foreach (var player in Players)
@@ -49,6 +74,7 @@ namespace Simulator
 							unit.Move(this);
 
 						break;
+					case BattleResult.Draw: // 비긴 경우 맨 앞 없앤 후 나머지 전진. 성 공격과 같다.
 					case BattleResult.AttackCastle: //성 공격시 head 제거, 나머지 한칸씩 전진
 						unitQueue.Dequeue();
 						foreach (var unit in unitQueue)
@@ -80,6 +106,17 @@ namespace Simulator
 		}
 
 		public bool IsEnd()
+		{
+			return false;
+		}
+
+		public Unit FindEnemy(Path path)
+		{
+			return null;
+		}
+
+		//성이 공격 범위 내에 있는지 계산해서 돌려줌
+		public bool IsInRange(Unit unit, Waypoint castle)
 		{
 			return false;
 		}

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Simulator
 {
-    public class Castle : Waypoint
+	public class Castle : Waypoint
 	{
 		public Player Owner { get; private set; } = null;
 
@@ -17,7 +17,7 @@ namespace Simulator
 			get { return (int)unitNum; }
 		}
 
-		List<Waypoint> AttackPoint;
+		public List<Waypoint> AttackPoint { get; private set;}
 
 		public Castle(int id, float x, float y) : base(id)
 		{
@@ -62,6 +62,10 @@ namespace Simulator
 				return;
 
 			unitNum -= unit.Num;
+		}
+
+		public void Upgrade()
+		{
 		}
     }
 }

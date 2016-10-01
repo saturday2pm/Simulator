@@ -10,7 +10,7 @@ namespace Simulator
 		public int Id { get; private set; }
 
 		public Point Pos { get; protected set; }
-
+		
 		public Waypoint(int id)
 		{
 			Id = id;
