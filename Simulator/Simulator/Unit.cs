@@ -64,8 +64,10 @@ namespace Simulator
 		float unitSpeed;
 		float attackRange;
 
-		public Unit(float x, float y, float speed, float range, Player owner, Waypoint startPoint, Waypoint endPoint)
+		public Unit(int num, float x, float y, float speed, float range, Player owner, Waypoint startPoint, Waypoint endPoint)
 		{
+			Num = num;
+
 			Pos.X = x;
 			Pos.Y = y;
 
@@ -77,8 +79,10 @@ namespace Simulator
 			Road = new Path(startPoint, endPoint);
 		}
 
-		public Unit(Point pos, float speed, float range, Player owner, Waypoint startPoint, Waypoint endPoint)
+		public Unit(int num, Point pos, float speed, float range, Player owner, Waypoint startPoint, Waypoint endPoint)
 		{
+			Num = num;
+
 			Pos = pos;
 
 			unitSpeed = speed;

@@ -30,6 +30,8 @@ namespace Simulator
 		public int Width { get; set; }
 		public int Height { get; set; }
 
+		public float UnitRunRatio { get; set; }
+
 
 		public float UnitSpeed { get; set; }
 		//unit의 공격 범위

@@ -42,7 +42,7 @@ namespace Simulator
 					y = r.Next(0, Option.Height);
 				} while (Castles.Any(c => (c.Pos.X - x) * (c.Pos.X - x) + (c.Pos.Y - y) * (c.Pos.Y - y) < Option.CastleDistance * Option.CastleDistance));
 
-				Castles.Add(new Castle(waypointId, x, y, Option.UpgradeInfo, Option.UnitSpeed, Option.UnitAttackRange));
+				Castles.Add(new Castle(waypointId, x, y, Option.UnitRunRatio, Option.UpgradeInfo));
 				waypointId++;
 			}
 		}
@@ -131,6 +131,12 @@ namespace Simulator
 			}
 
 			return null;
+		}
+
+		public void CreateUnit(int num, Player owner, float startOffset, Waypoint start, Waypoint end)
+		{
+			var path = new Path(start, end);
+			Units[path].Enqueue(new Unit(num, start.Pos + startOffset * path.Dir, Option.UnitSpeed, Option.UnitAttackRange, owner, start, end));
 		}
 
 		//성이 공격 범위 내에 있는지 계산해서 돌려줌

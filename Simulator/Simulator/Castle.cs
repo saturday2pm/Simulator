@@ -11,10 +11,14 @@ namespace Simulator
 		public int Level { get; private set; } = 1;
 
 		List<CastleUpgradeInfo> UpgradeInfo;
-		float unitSpeed;
-		float unitAttackRange;
 
 		float unitNum;
+		float unitRunRatio;
+
+		public float UnitIncreaseRatio
+		{
+			get { return UpgradeInfo[Level - 1].IncreaseRatio; }
+		}
 
 		public int UnitNum
 		{
@@ -47,43 +51,54 @@ namespace Simulator
 			}
 		}
 
-		public List<Waypoint> AttackPoint { get; private set;}
+		public List<Waypoint> EndPoint { get; private set;}
 
-		public Castle(int id, float x, float y, List<CastleUpgradeInfo> info, float speed, float range) : base(id)
+		public Castle(int id, float x, float y, float runRatio, List<CastleUpgradeInfo> info) : base(id)
 		{
 			Pos.X = x;
 			Pos.Y = y;
 
+			unitRunRatio = runRatio;
+
 			UpgradeInfo = info;
-			unitSpeed = speed;
-			unitAttackRange = range;
 		}
 
-		public Castle(int id, Point pos, List<CastleUpgradeInfo> info, float speed, float range) : base(id)
+		public Castle(int id, Point pos, float runRatio, List<CastleUpgradeInfo> info) : base(id)
 		{
 			Pos = pos;
 
+			unitRunRatio = runRatio;
+
 			UpgradeInfo = info;
-			unitSpeed = speed;
-			unitAttackRange = range;
 		}
 
 		public void Update(Match match)
 		{
-			unitNum += unitNum * match.UnitIncreaseRatio;
+			unitNum += unitNum * UnitIncreaseRatio;
+
+			if (unitNum > MaxNum)
+				unitNum = MaxNum;
+
+			int num = (int)(unitNum * unitRunRatio);
+
+			//unit 일부를 다른 지역으로 파견함
+			foreach (var end in EndPoint)
+			{
+				match.CreateUnit(num, Owner, Radius, this, end);
+			}
 		}
 
 		public void Attack(Waypoint point)
 		{
-			if (!AttackPoint.Contains(point))
+			if (!EndPoint.Contains(point))
 			{
-				AttackPoint.Add(point);
+				EndPoint.Add(point);
 			}
 		}
 
 		public void CancelAttack(Waypoint point)
 		{
-			AttackPoint.Remove(point);
+			EndPoint.Remove(point);
 		}
 
 		public void AddUnit(Unit unit)
@@ -100,6 +115,15 @@ namespace Simulator
 				return;
 
 			unitNum -= unit.Num;
+		}
+
+		public void Upgrade()
+		{
+			if (!IsUpgradable)
+				return;
+
+			unitNum -= Cost;
+			Level++;
 		}
     }
 }
