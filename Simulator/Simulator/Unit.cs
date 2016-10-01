@@ -61,22 +61,37 @@ namespace Simulator
 		//이 유닛이 있는 경로 - 전투 판단할 때 쓰임
 		public Path Road { get; private set; }
 
-		public Unit(float x, float y, Player owner, Waypoint startPoint, Waypoint endPoint)
+		float unitSpeed;
+		float attackRange;
+
+		public Unit(float x, float y, float speed, float range, Player owner, Waypoint startPoint, Waypoint endPoint)
 		{
 			Pos.X = x;
 			Pos.Y = y;
+
+			unitSpeed = speed;
+			attackRange = range;
 
 			Owner = owner;
 
 			Road = new Path(startPoint, endPoint);
 		}
 
-		public Unit(Point pos, Player owner, Waypoint startPoint, Waypoint endPoint)
+		public Unit(Point pos, float speed, float range, Player owner, Waypoint startPoint, Waypoint endPoint)
 		{
 			Pos = pos;
+
+			unitSpeed = speed;
+			attackRange = range;
+
 			Owner = owner;
 
 			Road = new Path(startPoint, endPoint);
+		}
+
+		public bool IsAttackable(Unit other)
+		{
+			return Pos.DistSquare(other.Pos) < attackRange * attackRange;
 		}
 
 		public BattleResult Battle(Match match)
@@ -104,7 +119,14 @@ namespace Simulator
 
 				if (match.IsInRange(this, castle))
 				{
-					castle.Attacked(this);
+					if (castle.Owner == Owner)
+					{
+						castle.AddUnit(this);
+					}
+					else
+					{
+						castle.Attacked(this);
+					}
 
 					return BattleResult.AttackCastle;
 				}

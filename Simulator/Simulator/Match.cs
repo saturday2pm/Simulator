@@ -42,7 +42,7 @@ namespace Simulator
 					y = r.Next(0, Option.Height);
 				} while (Castles.Any(c => (c.Pos.X - x) * (c.Pos.X - x) + (c.Pos.Y - y) * (c.Pos.Y - y) < Option.CastleDistance * Option.CastleDistance));
 
-				Castles.Add(new Castle(waypointId, x, y));
+				Castles.Add(new Castle(waypointId, x, y, Option.UpgradeInfo, Option.UnitSpeed, Option.UnitAttackRange));
 				waypointId++;
 			}
 		}
@@ -90,6 +90,8 @@ namespace Simulator
 						foreach (var unit in unitQueue)
 							unit.Move(this);
 						break;
+					default:
+						throw new NotImplementedException();
 				}
 			}
 
@@ -123,7 +125,7 @@ namespace Simulator
 			var firstEnemy = queue.Peek();
 
 			//공격 가능한 적이 있음
-			if (unit.Pos.DistSquare(firstEnemy.Pos) < Option.UnitAttackRange)
+			if (unit.IsAttackable(firstEnemy))
 			{
 				return firstEnemy;
 			}
@@ -131,19 +133,10 @@ namespace Simulator
 			return null;
 		}
 
-		//성의 업그레이드 레벨 고려한 성 둘레 계산해서 돌려줌
-		public float GetRadius(Castle castle)
-		{
-			if (Option.UpgradeInfo.Count < castle.Level)
-				throw new InvalidOperationException();
-
-			return Option.UpgradeInfo[castle.Level - 1].Radius;
-		}
-
 		//성이 공격 범위 내에 있는지 계산해서 돌려줌
 		public bool IsInRange(Unit unit, Castle castle)
 		{
-			float range = Option.UnitAttackRange + GetRadius(castle);
+			float range = Option.UnitAttackRange + castle.Radius;
 			return unit.Pos.DistSquare(castle.Pos) < range * range;
 		}
     }
