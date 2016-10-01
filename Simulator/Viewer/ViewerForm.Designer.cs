@@ -50,6 +50,7 @@
 			this.draw.Size = new System.Drawing.Size(1462, 756);
 			this.draw.TabIndex = 0;
 			this.draw.TabStop = false;
+			this.draw.Paint += new System.Windows.Forms.PaintEventHandler(this.draw_Paint);
 			// 
 			// startButton
 			// 

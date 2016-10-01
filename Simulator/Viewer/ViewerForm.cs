@@ -36,5 +36,10 @@ namespace Viewer
 		{
 
 		}
+
+		private void draw_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
 	}
 }
