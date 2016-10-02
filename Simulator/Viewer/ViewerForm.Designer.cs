@@ -88,6 +88,7 @@
 			this.nextFrameButton.TabIndex = 3;
 			this.nextFrameButton.Text = "▶ 다음 프레임";
 			this.nextFrameButton.UseVisualStyleBackColor = true;
+			this.nextFrameButton.Visible = false;
 			this.nextFrameButton.Click += new System.EventHandler(this.nextFrameButton_Click);
 			// 
 			// label1
