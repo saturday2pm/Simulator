@@ -99,6 +99,9 @@ namespace Simulator
 
 		public void Attack(Waypoint point)
 		{
+			if (point == this)
+				return;
+
 			if (!EndPoint.Contains(point))
 			{
 				EndPoint.Add(point);
@@ -107,6 +110,9 @@ namespace Simulator
 
 		public void CancelAttack(Waypoint point)
 		{
+			if (point == this)
+				return;
+
 			EndPoint.Remove(point);
 		}
 

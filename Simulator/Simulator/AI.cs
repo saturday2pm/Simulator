@@ -40,6 +40,9 @@ namespace Simulator
 
 			foreach (var c in match.Castles)
 			{
+				if (c == castle)
+					continue;
+
 				if (c.Owner == null && (emptyCastle == null || (emptyCastle.Pos.DistSquare(castle.Pos) > c.Pos.DistSquare(castle.Pos))))
 					emptyCastle = c;
 
