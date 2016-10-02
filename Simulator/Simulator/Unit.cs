@@ -163,7 +163,8 @@ namespace Simulator
 		//속도에 맞게 지정된 경로 따라 이동함
 		public void Move(Match match)
 		{
-			Pos += unitSpeed * Road.Dir;
+			if(match.IsMovable(this))
+				Pos += unitSpeed * Road.Dir;
 		}
 
 		//endPoint에 가까울 수록 더 큰 값(뒤에 오는 값)으로 취급(SortedSet)
