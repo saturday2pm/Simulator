@@ -81,9 +81,6 @@ namespace Simulator
 
 			unitNum += unitNum * UnitIncreaseRatio;
 
-			if (unitNum > MaxNum)
-				unitNum = MaxNum;
-
 			int num = (int)(unitNum * unitRunRatio);
 
 			//unit 일부를 다른 지역으로 파견함
@@ -95,6 +92,9 @@ namespace Simulator
 					unitNum -= num;
 				}
 			}
+
+			if (unitNum > MaxNum)
+				unitNum = MaxNum;
 		}
 
 		public void Attack(Waypoint point)
