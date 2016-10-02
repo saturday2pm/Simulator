@@ -49,8 +49,8 @@ namespace Simulator
 		}
 	}
 
-    public class Unit
-    {
+	public class Unit : IComparable<Unit>
+	{
 		//유닛의 현재 좌표
 		public Point Pos { get; private set; }
 		//해당 유닛의 병력 크기
@@ -163,7 +163,22 @@ namespace Simulator
 		//속도에 맞게 지정된 경로 따라 이동함
 		public void Move(Match match)
 		{
-			Pos += match.UnitSpeed * Road.Dir;
+			Pos += unitSpeed * Road.Dir;
+		}
+
+		//endPoint에 가까울 수록 더 큰 값(뒤에 오는 값)으로 취급(SortedSet)
+
+		public int CompareTo(Unit other)
+		{
+			var dist = Road.End.Pos.DistSquare(Pos);
+			var otherDist = other.Road.End.Pos.DistSquare(other.Pos);
+
+			if (dist < otherDist)
+				return 1; //내가 더 가까우므로 내가 더 큼
+			else if (dist == otherDist)
+				return 0;
+			else
+				return -1;
 		}
 	}
 }

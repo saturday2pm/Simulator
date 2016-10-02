@@ -30,6 +30,9 @@ namespace Simulator
 		public int Width { get; set; }
 		public int Height { get; set; }
 
+		//성에 처음 있는 유닛 숫자
+		public int CastleStartUnitNum { get; set; }
+
 		public float UnitRunRatio { get; set; }
 
 

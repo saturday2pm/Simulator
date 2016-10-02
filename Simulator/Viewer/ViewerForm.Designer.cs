@@ -37,26 +37,31 @@
 			this.OptionLoadingButton = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.PlayFrame = new System.Windows.Forms.NumericUpDown();
+			this.PlayerNumUpDown = new System.Windows.Forms.NumericUpDown();
+			this.label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.draw)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PlayFrame)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.PlayerNumUpDown)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// draw
 			// 
 			this.draw.BackColor = System.Drawing.Color.White;
 			this.draw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.draw.Location = new System.Drawing.Point(12, 93);
+			this.draw.Location = new System.Drawing.Point(10, 74);
+			this.draw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.draw.Name = "draw";
-			this.draw.Size = new System.Drawing.Size(1462, 756);
+			this.draw.Size = new System.Drawing.Size(897, 377);
 			this.draw.TabIndex = 0;
 			this.draw.TabStop = false;
 			this.draw.Paint += new System.Windows.Forms.PaintEventHandler(this.draw_Paint);
 			// 
 			// startButton
 			// 
-			this.startButton.Location = new System.Drawing.Point(12, 12);
+			this.startButton.Location = new System.Drawing.Point(10, 10);
+			this.startButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.startButton.Name = "startButton";
-			this.startButton.Size = new System.Drawing.Size(280, 75);
+			this.startButton.Size = new System.Drawing.Size(245, 60);
 			this.startButton.TabIndex = 1;
 			this.startButton.Text = "Start";
 			this.startButton.UseVisualStyleBackColor = true;
@@ -65,9 +70,10 @@
 			// manualCheckBox
 			// 
 			this.manualCheckBox.AutoSize = true;
-			this.manualCheckBox.Location = new System.Drawing.Point(298, 16);
+			this.manualCheckBox.Location = new System.Drawing.Point(261, 13);
+			this.manualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.manualCheckBox.Name = "manualCheckBox";
-			this.manualCheckBox.Size = new System.Drawing.Size(94, 19);
+			this.manualCheckBox.Size = new System.Drawing.Size(76, 16);
 			this.manualCheckBox.TabIndex = 2;
 			this.manualCheckBox.Text = "수동 재생";
 			this.manualCheckBox.UseVisualStyleBackColor = true;
@@ -75,9 +81,10 @@
 			// 
 			// nextFrameButton
 			// 
-			this.nextFrameButton.Location = new System.Drawing.Point(298, 50);
+			this.nextFrameButton.Location = new System.Drawing.Point(261, 40);
+			this.nextFrameButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.nextFrameButton.Name = "nextFrameButton";
-			this.nextFrameButton.Size = new System.Drawing.Size(180, 37);
+			this.nextFrameButton.Size = new System.Drawing.Size(158, 30);
 			this.nextFrameButton.TabIndex = 3;
 			this.nextFrameButton.Text = "▶ 다음 프레임";
 			this.nextFrameButton.UseVisualStyleBackColor = true;
@@ -86,25 +93,27 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(490, 17);
+			this.label1.Location = new System.Drawing.Point(429, 14);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(72, 15);
+			this.label1.Size = new System.Drawing.Size(57, 12);
 			this.label1.TabIndex = 4;
 			this.label1.Text = "옵션 파일";
 			// 
 			// OptionPath
 			// 
-			this.OptionPath.Location = new System.Drawing.Point(566, 13);
+			this.OptionPath.Location = new System.Drawing.Point(495, 10);
+			this.OptionPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.OptionPath.Name = "OptionPath";
 			this.OptionPath.ReadOnly = true;
-			this.OptionPath.Size = new System.Drawing.Size(819, 25);
+			this.OptionPath.Size = new System.Drawing.Size(320, 21);
 			this.OptionPath.TabIndex = 5;
 			// 
 			// OptionLoadingButton
 			// 
-			this.OptionLoadingButton.Location = new System.Drawing.Point(1391, 12);
+			this.OptionLoadingButton.Location = new System.Drawing.Point(821, 10);
+			this.OptionLoadingButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.OptionLoadingButton.Name = "OptionLoadingButton";
-			this.OptionLoadingButton.Size = new System.Drawing.Size(83, 25);
+			this.OptionLoadingButton.Size = new System.Drawing.Size(73, 20);
 			this.OptionLoadingButton.TabIndex = 6;
 			this.OptionLoadingButton.Text = "...";
 			this.OptionLoadingButton.UseVisualStyleBackColor = true;
@@ -113,15 +122,16 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(490, 61);
+			this.label2.Location = new System.Drawing.Point(429, 49);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(122, 15);
+			this.label2.Size = new System.Drawing.Size(97, 12);
 			this.label2.TabIndex = 7;
 			this.label2.Text = "초당 재생 프레임";
 			// 
 			// PlayFrame
 			// 
-			this.PlayFrame.Location = new System.Drawing.Point(619, 58);
+			this.PlayFrame.Location = new System.Drawing.Point(542, 46);
+			this.PlayFrame.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.PlayFrame.Maximum = new decimal(new int[] {
             20,
             0,
@@ -133,19 +143,54 @@
             0,
             0});
 			this.PlayFrame.Name = "PlayFrame";
-			this.PlayFrame.Size = new System.Drawing.Size(73, 25);
+			this.PlayFrame.Size = new System.Drawing.Size(64, 21);
 			this.PlayFrame.TabIndex = 8;
 			this.PlayFrame.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
+			this.PlayFrame.ValueChanged += new System.EventHandler(this.PlayFrame_ValueChanged);
+			// 
+			// PlayerNumUpDown
+			// 
+			this.PlayerNumUpDown.Location = new System.Drawing.Point(707, 47);
+			this.PlayerNumUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.PlayerNumUpDown.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.PlayerNumUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+			this.PlayerNumUpDown.Name = "PlayerNumUpDown";
+			this.PlayerNumUpDown.Size = new System.Drawing.Size(64, 21);
+			this.PlayerNumUpDown.TabIndex = 10;
+			this.PlayerNumUpDown.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(621, 50);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(81, 12);
+			this.label3.TabIndex = 9;
+			this.label3.Text = "플레이어 숫자";
 			// 
 			// ViewerForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1486, 863);
+			this.ClientSize = new System.Drawing.Size(926, 472);
+			this.Controls.Add(this.PlayerNumUpDown);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.PlayFrame);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.OptionLoadingButton);
@@ -155,10 +200,12 @@
 			this.Controls.Add(this.manualCheckBox);
 			this.Controls.Add(this.startButton);
 			this.Controls.Add(this.draw);
+			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.Name = "ViewerForm";
 			this.Text = "Viewer";
 			((System.ComponentModel.ISupportInitialize)(this.draw)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.PlayFrame)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.PlayerNumUpDown)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -175,6 +222,8 @@
 		private System.Windows.Forms.Button OptionLoadingButton;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.NumericUpDown PlayFrame;
+		private System.Windows.Forms.NumericUpDown PlayerNumUpDown;
+		private System.Windows.Forms.Label label3;
 	}
 }
 

@@ -20,8 +20,7 @@ namespace Simulator
 
 			float norm = (float)Math.Sqrt((x*x + y*y));
 
-			Dir.X = x / norm;
-			Dir.Y = y / norm;
+			Dir = new Point(x / norm, y / norm);
 		}
 
 		public Path Reverse

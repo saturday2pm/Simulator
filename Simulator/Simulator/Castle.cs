@@ -6,7 +6,7 @@ namespace Simulator
 {
 	public class Castle : Waypoint
 	{
-		public Player Owner { get; private set; } = null;
+		public Player Owner { get; set; } = null;
 
 		public int Level { get; private set; } = 1;
 
@@ -51,12 +51,12 @@ namespace Simulator
 			}
 		}
 
-		public List<Waypoint> EndPoint { get; private set;}
+		public List<Waypoint> EndPoint { get; private set; } = new List<Waypoint>();
 
-		public Castle(int id, float x, float y, float runRatio, List<CastleUpgradeInfo> info) : base(id)
+		public Castle(int id, int startNum, float x, float y, float runRatio, List<CastleUpgradeInfo> info) : base(id)
 		{
-			Pos.X = x;
-			Pos.Y = y;
+			Pos = new Point(x, y);
+			unitNum = startNum;
 
 			unitRunRatio = runRatio;
 
@@ -74,6 +74,11 @@ namespace Simulator
 
 		public void Update(Match match)
 		{
+			if (Owner == null)
+			{
+				return; // 야만인 땅은 걍 가만히 있음
+			}
+
 			unitNum += unitNum * UnitIncreaseRatio;
 
 			if (unitNum > MaxNum)
@@ -82,9 +87,13 @@ namespace Simulator
 			int num = (int)(unitNum * unitRunRatio);
 
 			//unit 일부를 다른 지역으로 파견함
-			foreach (var end in EndPoint)
+			if (num > 0 && num * EndPoint.Count < UnitNum)
 			{
-				match.CreateUnit(num, Owner, Radius, this, end);
+				foreach (var end in EndPoint)
+				{
+					match.CreateUnit(num, Owner, Radius, this, end);
+					unitNum -= num;
+				}
 			}
 		}
 
@@ -120,7 +129,9 @@ namespace Simulator
 			{
 				unitNum = -unitNum;
 
-				Owner.RemoveCastle(this);
+				if(Owner != null)
+					Owner.RemoveCastle(this);
+
 				Owner = unit.Owner;
 				Owner.AddCastle(this);
 			}
