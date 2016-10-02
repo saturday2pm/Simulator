@@ -134,7 +134,7 @@
 			this.PlayFrame.Location = new System.Drawing.Point(542, 46);
 			this.PlayFrame.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.PlayFrame.Maximum = new decimal(new int[] {
-            20,
+            40,
             0,
             0,
             0});
@@ -147,7 +147,7 @@
 			this.PlayFrame.Size = new System.Drawing.Size(64, 21);
 			this.PlayFrame.TabIndex = 8;
 			this.PlayFrame.Value = new decimal(new int[] {
-            10,
+            20,
             0,
             0,
             0});

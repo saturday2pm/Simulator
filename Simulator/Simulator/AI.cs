@@ -33,24 +33,39 @@ namespace Simulator
 				castle.Upgrade();
 
 			Castle emptyCastle = null;
+			float emptyValue = 987654321;
 			Castle weekCastle = null;
-			float maxDistance = 300.0f;
-
+			float weekValue = 987654321;
 			Castle allyCastle = null;
+			float allyValue = 987654321;
+
+			float maxDist = 400.0f;
 
 			foreach (var c in match.Castles)
 			{
 				if (c == castle)
 					continue;
 
-				if (c.Owner == null && (emptyCastle == null || (emptyCastle.Pos.DistSquare(castle.Pos) > c.Pos.DistSquare(castle.Pos))))
+				var dist = (float)Math.Sqrt(c.Pos.DistSquare(castle.Pos));
+				float value = c.UnitNum + dist;
+
+				if (c.Owner == null && dist < maxDist && emptyValue > dist)
+				{
 					emptyCastle = c;
+					emptyValue = dist;
+				}
 
-				if (c.Owner != castle.Owner && (weekCastle == null || weekCastle.Pos.DistSquare(castle.Pos) < maxDistance * maxDistance && (weekCastle == null || (weekCastle.UnitNum > c.UnitNum))))
+				if (c.Owner != castle.Owner && dist < maxDist &&  weekValue > value)
+				{
 					weekCastle = c;
+					weekValue = value;
+				}
 
-				if (c.Owner == castle.Owner && (allyCastle == null || (allyCastle.Pos.DistSquare(castle.Pos) > c.Pos.DistSquare(castle.Pos))))
+				if (c.Owner == castle.Owner && dist < maxDist && c.UnitNum < castle.UnitNum && allyValue < value)
+				{
 					allyCastle = c;
+					allyValue = value;
+				}
 			}
 
 			if (emptyCastle != null)
